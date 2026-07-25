@@ -16,7 +16,7 @@
 
 name = input("Enter Name ")
 country = input("Enter Country ")
-favorite_language = input("Enter Favorite Programming Language ")
+favorite_language = input("Enter Favorite Programming Language ").strip().lower()
 
 print(f"{'=' * 32}")
 print()
@@ -24,7 +24,7 @@ print(f"Welcome {name}!")
 print(f"Country : {country}")
 print(f"Favorite Language : {favorite_language}")
 
-if favorite_language == "Python":
+if favorite_language == "python":
     print("Python is a versatile language! Keep up the great work!")
 else:
     print(f"{favorite_language} is a great language! Keep learning and coding!")
