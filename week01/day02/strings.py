@@ -1,11 +1,3 @@
-# name = "Teja"
-
-# print(name.upper())
-# print(name.lower())
-# print(name.title())
-# print(len(name))
-# print(name.replace("Teja", "Tejashiva"))
-
 # Then experiment:
 
 # What does strip() do?
