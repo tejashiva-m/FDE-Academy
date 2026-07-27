@@ -58,4 +58,29 @@ When would % be useful?
 
 % will help us only get the reminder as output value after dividing the integer. 
 
+# Lists:
+
+employees.insert(1, "David")
+The above logic will insert David string at the location 1 that is next to first integer.
+
+**employees.sort()**
+
+It will sort the strings given by naming order from A to Z
+
+**employees.reverse()**
+
+This logic will reverse the above order and provide the output from Z to A.
+
+# Tuples:
+We cannot change the data in the tuples, meaning we cannot modify the existing given tuple with other assigning value.  
+
+# Dictionary vs List
+
+if you frequently retrieve items by a known key, prefer dict; if you need ordering, indexing, or duplicates, prefer list.
+
+Dict is something we lookup for fast access and list is making a list or sequence order of list.
+
+# Sets
+
+When we use sets the duplicates will be automatically removed. 
 
