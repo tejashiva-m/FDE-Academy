@@ -84,3 +84,63 @@ Dict is something we lookup for fast access and list is making a list or sequenc
 
 When we use sets the duplicates will be automatically removed. 
 
+# loops
+
+1:
+numbers = [10, 20, 30, 40, 50]
+
+for number in numbers:
+    print(number * 2)
+
+2:
+print(10 * 2)
+print(20 * 2)
+print(30 * 2)
+
+Why is 1st better than 2nd one:
+
+Because for higher numbers more than 100000 the for loop will be easier syntax and execution process rather than assigning it individually one by one. 
+
+# Enumerate:
+
+What is the meaning of enumerate in Python?
+In Python, `enumerate` is a built-in function that adds a counter to an iterable (like a list or tuple) and returns it as an enumerate object. This allows you to loop through the iterable while keeping track of the index of each item. 
+
+# While Loop
+
+count = 1
+
+while count <= 5:
+    print(count)
+    count += 1
+
+OP: 1 2 3 4 5 
+
+print()
+
+ count = 1
+
+  while count <= 5:
+     print(count)
+
+OP: infinite loop
+
+If you miss count += 1 it will start repeating 1 until we stop with Ctrl + C. This is called an infinite loop. 
+
+# Break & Continue:
+
+Question:
+
+What's the difference?
+
+The difference between `break` and `continue` in a loop is how they affect the flow of the loop:
+- `break`: When the `break` statement is encountered, it immediately terminates the loop, and the program continues executing the code that follows the loop. In the first example, when `number` equals 5, the loop stops executing, and no further numbers are printed.
+- `continue`: When the `continue` statement is encountered, it skips the rest of the code inside the loop for the current iteration and moves on to the next iteration of the loop. In the second example, when `number` equals 5, the `continue` statement causes the loop to skip printing that number and move on to the next iteration, so all numbers except 5 are printed.
+
+# Refactoring
+
+Refactoring means reorganizing and cleaning up code without changing what it does. It makes the code easier to read, maintain, and extend.
+
+Why are functions better than writing everything in one file?
+
+Functions let you name pieces of behavior and reuse them. They make code easier to understand because each function has a single job. When the program grows, functions help avoid repeating the same code and make it easier to fix bugs or add new features.

@@ -15,3 +15,6 @@ print(employee)
 print(employee.keys())
 print(employee.values())
 print(employee.items())
+
+for key, value in employee.items():
+    print(f"{key}: {value}")
