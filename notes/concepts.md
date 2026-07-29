@@ -144,3 +144,29 @@ Refactoring means reorganizing and cleaning up code without changing what it doe
 Why are functions better than writing everything in one file?
 
 Functions let you name pieces of behavior and reuse them. They make code easier to understand because each function has a single job. When the program grows, functions help avoid repeating the same code and make it easier to fix bugs or add new features.
+
+
+# Dict vs Class Instances
+
+- Structure: a `dict` is a built-in mapping of keys to values (e.g. `{"name": "Teja"}`); an instance like `Employee(...)` is an object of a user-defined class with named attributes.
+- Behavior: `dict` stores data only; a class can include methods, validation, and computed properties (data + behavior together).
+- Readability & tooling: classes (and `@dataclass`) give clearer intent, type hints, and better IDE completion; dicts are lightweight but less explicit.
+- Use cases: use a `dict` for quick scripts or dynamic records; use a class when you need abstraction, invariants, or reusable behavior.
+- Interop: dicts serialize to JSON easily; classes can provide `to_dict()` / `from_dict()` helpers or be converted using `dataclasses.asdict()`.
+
+Example:
+
+```
+employee = {"name": "Teja"}
+
+from dataclasses import dataclass
+
+@dataclass
+class Employee:
+    name: str
+
+emp = Employee("Teja")
+```
+
+Summary: start with dicts for small tasks; prefer classes/dataclasses as the program grows and you need structure, methods, or validation.
+
