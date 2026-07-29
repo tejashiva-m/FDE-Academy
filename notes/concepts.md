@@ -170,3 +170,67 @@ emp = Employee("Teja")
 
 Summary: start with dicts for small tasks; prefer classes/dataclasses as the program grows and you need structure, methods, or validation.
 
+# Object-Oriented Programming
+
+What is a class?
+
+A class is a blueprint or template that defines the structure and behavior (attributes and methods) of a kind of object. Think of it as the recipe; each object made from the class follows that recipe.
+
+What is an object?
+
+An object (or instance) is a concrete value created from a class. Each object has its own attribute values but shares the same behavior defined by the class.
+
+What is `__init__`?
+
+`__init__` is a special method that runs automatically when you create an instance. It initializes the object's attributes (its starting state).
+
+What is `self`?
+
+`self` is the reference to the instance inside class methods. Use `self` to read or write the instance's attributes and to call other methods on the same object.
+
+Why are methods useful?
+
+Methods bundle behavior with the data they operate on. They let objects perform actions, keep code organized, and encapsulate logic (validation, state changes) close to the data.
+
+Why use a class instead of a dictionary?
+
+- Classes group data and behavior together, making code clearer when objects need rules or methods.
+- Classes can enforce invariants and validation in one place.
+- Classes support type hints, IDE help, and can implement special methods (`__str__`, `__repr__`, comparison operators).
+- Dicts are lighter and fine for simple or temporary records, but classes scale better for complex logic.
+
+Research note — `__str__`:
+
+Many classes define `__str__()` to return a human-friendly string representation of an object. This makes printing or logging instances more readable (e.g., `print(employee)` shows useful info instead of a generic object address).
+
+# Inheritance
+
+Inheritance lets one class reuse the behavior and data of another class. A Manager and an Intern can both use the basic employee information from Employee without rewriting it every time.
+
+Why use inheritance?
+
+Inheritance helps avoid duplicate code, keeps shared behavior in one place, and makes it easier to expand the program with new employee types later.
+
+What is `super()`?
+
+`super()` lets a child class call the parent class's initializer or methods. It is useful when the child wants to reuse the parent setup before adding its own details.
+
+# Method Overriding
+
+Method overriding happens when a child class provides its own version of a method that already exists in the parent class. For example, Manager and Intern can override `display()` so they add their own extra information.
+
+# Polymorphism
+
+Polymorphism means “many forms.” The same method name can behave differently depending on the object that calls it. In this project, calling `display()` on an Employee, a Manager, and an Intern each shows the right behavior for that object.
+
+# Composition
+
+Composition means building a class from other objects rather than inheriting everything. A Company is a good example because it can contain many employee objects inside a list.
+
+HAS-A vs IS-A
+
+- IS-A means inheritance. A Manager IS an Employee.
+- HAS-A means composition. A Company HAS many employees.
+
+`isinstance()` is a helpful tool when we need to check the type of an object. For example, `isinstance(employee, Manager)` checks whether the object is a Manager or a subclass of Manager. This is more reliable than checking a department string because it uses actual object type instead of a value that could be changed or mistyped.
+
