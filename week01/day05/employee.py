@@ -34,6 +34,13 @@ class Employee:
         self.salary = new_salary
 
 
+class Manager(Employee):
+
+    def __init__(self, name, department, salary, team_size):
+        super().__init__(name, department, salary)
+        self.team_size = team_size
+
+
 if __name__ == '__main__':
     employee1 = Employee("Teja", "Cloud", 120000)
 
@@ -47,6 +54,9 @@ if __name__ == '__main__':
     print(employee1.name)
     print(employee1.department)
     print(employee1.salary)
+
+    manager = Manager("Teja", "Cloud", 150000, 8)
+    manager.display()
 
 
 

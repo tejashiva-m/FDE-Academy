@@ -234,3 +234,33 @@ HAS-A vs IS-A
 
 `isinstance()` is a helpful tool when we need to check the type of an object. For example, `isinstance(employee, Manager)` checks whether the object is a Manager or a subclass of Manager. This is more reliable than checking a department string because it uses actual object type instead of a value that could be changed or mistyped.
 
+# Exception Handling
+
+What is an exception?
+
+An exception is an error that happens while a program is running. Python raises exceptions to tell us that something unexpected happened, such as invalid input or an impossible calculation.
+
+Why use try?
+
+`try` lets us test code that might fail without stopping the whole program. It gives us a safe place to handle problems.
+
+Why use except?
+
+`except` lets us respond to errors in a controlled way. Instead of the program crashing, we can show a friendly message or take another path.
+
+Why use finally?
+
+`finally` runs no matter what happens. It is useful for cleanup tasks like closing files or database connections.
+
+What does raise do?
+
+`raise` is used to trigger an exception manually. This is helpful when we want to stop a process and show a meaningful error message.
+
+Why create custom exceptions?
+
+Custom exceptions make errors more specific and easier to understand. Instead of using a general error for everything, we can create a clear exception for a specific rule.
+
+Why use logging instead of print?
+
+Logging is better than `print()` because it is easier to organize, easier to control, and better for larger programs. Logging can show different levels of importance, and it is more professional for real applications.
+

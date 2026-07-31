@@ -1,7 +1,7 @@
-from employee import Employee
-from manager import Manager
-from intern import Intern
 from company import Company
+from employee import Employee
+from intern import Intern
+from manager import Manager
 
 
 people = [
