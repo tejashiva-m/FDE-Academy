@@ -2,6 +2,7 @@ MAX_SALARY = 1_000_000
 
 
 class Employee:
+    """Base class for all employees."""
 
     def __init__(self, name, department, salary):
         self.name = name

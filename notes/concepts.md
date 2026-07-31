@@ -264,3 +264,43 @@ Why use logging instead of print?
 
 Logging is better than `print()` because it is easier to organize, easier to control, and better for larger programs. Logging can show different levels of importance, and it is more professional for real applications.
 
+# Reading Files
+
+`read()` returns the entire file as one string.
+
+`readlines()` returns the file as a list of lines, where each line keeps its newline character unless we strip it.
+
+When we use `read()`, the output is a single block of text. When we use `readlines()`, the output is a list of separate lines, which makes it easier to loop through each line one by one.
+
+# File Handling
+
+What is a file?
+
+A file is a stored collection of data on disk. We can use files to save information such as employee names, department names, or salaries so the data stays available even after the program closes.
+
+Why use files?
+
+Files are useful because they let us keep data between program runs. Instead of losing information when the program stops, we can read and write it from a file.
+
+Difference between:
+
+- `read()` reads the whole file as one string.
+- `readline()` reads one line at a time.
+- `readlines()` reads all lines and returns them as a list.
+
+Why use `with open()`?
+
+`with open()` is a safer way to work with files because it closes the file automatically when we are done, even if an error happens.
+
+Why use append mode (`"a"`)?
+
+Append mode adds new data to the end of the file without deleting what is already there. That is useful for building a list of employees over time.
+
+What does `strip()` remove?
+
+`strip()` removes extra spaces, tabs, or newlines from the beginning and end of a string. It helps clean up user input and file content.
+
+Why catch `FileNotFoundError`?
+
+`FileNotFoundError` happens when we try to read a file that does not exist. Catching it helps us show a friendly message instead of letting the program crash.
+
