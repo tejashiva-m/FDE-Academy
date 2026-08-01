@@ -199,6 +199,57 @@ Why use a class instead of a dictionary?
 - Classes support type hints, IDE help, and can implement special methods (`__str__`, `__repr__`, comparison operators).
 - Dicts are lighter and fine for simple or temporary records, but classes scale better for complex logic.
 
+# Modules & Packages
+
+What is a module?
+A module is a single Python file that contains code, such as functions, classes, or variables. It groups related behavior together so other programs can import and reuse it.
+
+What is a package?
+A package is a folder that contains Python modules and an `__init__.py` file. It allows multiple modules to be organized in a directory and imported with a common package name.
+
+Why split code into multiple files?
+Splitting code into multiple files keeps each part focused on one responsibility. It makes the code easier to read, test, and maintain, and prevents one large file from getting too complicated.
+
+Difference between:
+
+`import module`
+- Loads the whole module under its name.
+- You use the module name before the function or class, for example `module.function()`.
+- This helps avoid name conflicts and makes it clear where each symbol comes from.
+
+`from module import function`
+- Loads a specific function, class, or variable directly into the current file.
+- You can use it without the module prefix, for example `function()`.
+- This is useful when you only need a few names and want shorter code.
+
+What is `__init__.py`?
+`__init__.py` is a file that tells Python a directory should be treated as a package. It often imports package symbols or sets up package-level logic.
+
+What is `__name__`?
+`__name__` is a special variable that tells you how a Python file is being used. If the file is run directly, `__name__` is set to `"__main__"`. If it is imported, `__name__` is set to the module path.
+
+Why use `if __name__ == "__main__"`?
+This condition lets a file act both as a reusable module and as a script. Code inside that block runs only when the file is executed directly, not when it is imported.
+
+Why create utility modules?
+Utility modules store helper functions that are used across multiple files. They reduce code repetition, keep shared logic in one place, and make it easier to update behavior consistently.
+
+# Import Statements
+
+`import calculator`
+- Loads the module named `calculator`.
+- You access functions or variables with the module name, for example `calculator.add(2, 3)`.
+- This is useful when you want to keep the module namespace clear and avoid naming collisions.
+
+`from calculator import add`
+- Loads only the name `add` from the `calculator` module into the current namespace.
+- You can call it directly as `add(2, 3)` without the module prefix.
+- This is useful when you only need a specific function or want shorter code.
+
+Key difference:
+- `import calculator` keeps the full module namespace.
+- `from calculator import add` brings a specific name directly into your code.
+
 Research note — `__str__`:
 
 Many classes define `__str__()` to return a human-friendly string representation of an object. This makes printing or logging instances more readable (e.g., `print(employee)` shows useful info instead of a generic object address).

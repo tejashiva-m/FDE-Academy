@@ -1,4 +1,6 @@
-FILENAME = "employees.txt"
+from pathlib import Path
+
+FILENAME = Path(__file__).resolve().parent / "employees.txt"
 
 while True:
     print("\n" + "1 Add Employee")
