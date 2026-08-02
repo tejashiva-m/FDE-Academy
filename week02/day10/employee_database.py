@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 from database import load_database, save_database
 from utils import employee_status
 
@@ -16,6 +19,16 @@ def find_employee_by_name(employees, name):
     return None
 
 
+def export_senior_employees(employees):
+    senior_employees = [
+        employee for employee in employees if employee.get("salary", 0) > 100000
+    ]
+    export_path = Path(__file__).resolve().parent / "senior_employees.json"
+    with export_path.open("w") as file:
+        json.dump(senior_employees, file, indent=4)
+    print(f"Exported {len(senior_employees)} senior employees to senior_employees.json")
+
+
 def main():
     while True:
         print("\n1 Add Employee")
@@ -24,6 +37,7 @@ def main():
         print("4 Update Salary")
         print("5 Delete Employee")
         print("6 Exit")
+        print("7 Export Senior Employees")
 
         choice = input("Choose an option: ")
         employees = load_database()
@@ -79,6 +93,13 @@ def main():
         elif choice == "6":
             print("Goodbye!")
             break
+
+        elif choice == "7":
+            confirm = input("Export senior employees? (y/n): ")
+            if confirm.strip().lower() == "y":
+                export_senior_employees(employees)
+            else:
+                print("Export canceled.")
 
         else:
             print("Invalid option.")
