@@ -202,37 +202,37 @@ Why use a class instead of a dictionary?
 # Modules & Packages
 
 What is a module?
-A module is a single Python file that contains code, such as functions, classes, or variables. It groups related behavior together so other programs can import and reuse it.
+A module is a single Python file (`.py`) that contains code such as functions, classes, or variables. Modules let you organize related functionality in one place so other files can import and reuse it.
 
 What is a package?
-A package is a folder that contains Python modules and an `__init__.py` file. It allows multiple modules to be organized in a directory and imported with a common package name.
+A package is a directory that contains Python modules and usually an `__init__.py` file. Packages let you organize several modules together under a shared namespace, like `company_management`.
 
 Why split code into multiple files?
-Splitting code into multiple files keeps each part focused on one responsibility. It makes the code easier to read, test, and maintain, and prevents one large file from getting too complicated.
+Splitting code into multiple files helps keep each file focused on a specific task. It makes code easier to read, test, and maintain, and reduces the risk of mistakes caused by one large file.
 
 Difference between:
 
 `import module`
-- Loads the whole module under its name.
-- You use the module name before the function or class, for example `module.function()`.
-- This helps avoid name conflicts and makes it clear where each symbol comes from.
+- Loads the entire module under a name.
+- You access module members using the module prefix, for example `module.function()`.
+- This makes it clear where each function or class comes from.
 
 `from module import function`
-- Loads a specific function, class, or variable directly into the current file.
+- Loads a specific item directly into the current file.
 - You can use it without the module prefix, for example `function()`.
-- This is useful when you only need a few names and want shorter code.
+- This is useful when you only need one or a few things from a module.
 
 What is `__init__.py`?
-`__init__.py` is a file that tells Python a directory should be treated as a package. It often imports package symbols or sets up package-level logic.
+`__init__.py` is a file inside a package directory that tells Python to treat the folder as a package. It can also be used to expose package-level names or initialize package behavior.
 
 What is `__name__`?
-`__name__` is a special variable that tells you how a Python file is being used. If the file is run directly, `__name__` is set to `"__main__"`. If it is imported, `__name__` is set to the module path.
+`__name__` is a special variable set by Python for every module. If a file is run directly, `__name__` becomes `"__main__"`. If it is imported, `__name__` becomes the module’s import path.
 
 Why use `if __name__ == "__main__"`?
-This condition lets a file act both as a reusable module and as a script. Code inside that block runs only when the file is executed directly, not when it is imported.
+This statement ensures a section of code runs only when the file is executed directly, not when it is imported as a module. It is useful for running tests, examples, or a main program while still allowing the file to be reused.
 
 Why create utility modules?
-Utility modules store helper functions that are used across multiple files. They reduce code repetition, keep shared logic in one place, and make it easier to update behavior consistently.
+Utility modules contain helper functions that are shared by multiple parts of a project. They help avoid repeating the same logic in different files and make it easier to update behavior in one place.
 
 # Import Statements
 
@@ -354,4 +354,38 @@ What does `strip()` remove?
 Why catch `FileNotFoundError`?
 
 `FileNotFoundError` happens when we try to read a file that does not exist. Catching it helps us show a friendly message instead of letting the program crash.
+
+# JSON
+
+What is JSON?
+JSON is a lightweight text format for exchanging structured data. It represents data as objects and arrays using a syntax that is easy for humans to read and for machines to parse.
+
+Difference between Python dictionary and JSON?
+A Python dictionary is an in-memory data structure with Python types such as strings, numbers, lists, and other dictionaries. JSON is a text format that looks similar to Python dictionaries but is stored as plain text and is used for sharing data between systems.
+
+What does json.load() do?
+`json.load()` reads JSON text from a file object and converts it into Python data structures like dictionaries and lists.
+
+What does json.dump() do?
+`json.dump()` writes Python data structures to a file in JSON format.
+
+Difference between:
+
+`load()`
+- Reads JSON from a file object and returns Python values.
+
+`loads()`
+- Reads JSON from a string and returns Python values.
+
+`dump()`
+- Writes Python values to a file as JSON text.
+
+`dumps()`
+- Converts Python values to a JSON-formatted string.
+
+Why use indent=4?
+`indent=4` formats JSON with 4 spaces per level, making the file easier to read. It adds line breaks and indentation so the structure is clearer.
+
+Why is JSON used in APIs?
+JSON is widely used in APIs because it is simple, compact, and supported by almost every programming language. It makes it easy to exchange structured data between clients and servers.
 
