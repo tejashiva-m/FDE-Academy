@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Teja",
+        "department": "Cloud",
+        "salary": 120000
+    },
+    {
+        "name": "Alice",
+        "department": "Security",
+        "salary": 95000
+    },
+    {
+        "name": "Bob",
+        "department": "DevOps",
+        "salary": 110000
+    },
+    {
+        "name": "Himan",
+        "department": "Project Manager",
+        "salary": 180000
+    }
+]
