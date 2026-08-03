@@ -1,15 +1,15 @@
 import json
 from pathlib import Path
 
-from database import load_database, save_database
+from database import get_next_id, load_database, save_database
 from utils import employee_status
 
 
-def input_employee():
+def input_employee(employees):
     name = input("Name: ")
     department = input("Department: ")
     salary = int(input("Salary: "))
-    return {"name": name, "department": department, "salary": salary}
+    return {"id": get_next_id(employees), "name": name, "department": department, "salary": salary}
 
 
 def find_employee_by_name(employees, name):
@@ -43,10 +43,10 @@ def main():
         employees = load_database()
 
         if choice == "1":
-            new_employee = input_employee()
+            new_employee = input_employee(employees)
             employees.append(new_employee)
             save_database(employees)
-            print("Employee added.")
+            print("Employee added with ID", new_employee["id"])
 
         elif choice == "2":
             if not employees:
@@ -54,7 +54,8 @@ def main():
                 continue
 
             for employee in employees:
-                print("\nName:", employee.get("name"))
+                print("\nID:", employee.get("id"))
+                print("Name:", employee.get("name"))
                 print("Department:", employee.get("department"))
                 print("Salary:", employee.get("salary"))
                 print("Status:", employee_status(employee.get("salary", 0)))

@@ -18,3 +18,8 @@ def load_database():
 def save_database(employees):
     with DB_PATH.open("w") as file:
         json.dump(employees, file, indent=4)
+
+
+def get_next_id(employees):
+    existing_ids = [employee.get("id", 0) for employee in employees]
+    return max(existing_ids, default=0) + 1
