@@ -427,3 +427,15 @@ An API (Application Programming Interface) is a set of rules that lets one progr
 ## Why use requests instead of sockets?
 `requests` is a high-level library for HTTP that handles many details for you, like headers, query parameters, redirects, and JSON parsing. Using raw sockets means writing much more low-level code and managing HTTP manually.
 
+# HTTP Status Codes
+
+- `200` — OK: The request succeeded and the server returned the requested data.
+- `201` — Created: A new resource was successfully created, often in response to `POST`.
+- `204` — No Content: The request succeeded but there is no body to return, often used for successful deletes or updates.
+- `400` — Bad Request: The server could not understand the request because it was invalid or malformed.
+- `401` — Unauthorized: Authentication is required and has failed or has not been provided.
+- `403` — Forbidden: The server understood the request but refuses to authorize it.
+- `404` — Not Found: The requested resource does not exist at the given URL.
+- `500` — Internal Server Error: The server encountered an unexpected condition and could not complete the request.
+- `503` — Service Unavailable: The server is temporarily unable to handle the request, often due to overload or maintenance.
+
