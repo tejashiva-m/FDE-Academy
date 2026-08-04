@@ -389,3 +389,41 @@ Why use indent=4?
 Why is JSON used in APIs?
 JSON is widely used in APIs because it is simple, compact, and supported by almost every programming language. It makes it easy to exchange structured data between clients and servers.
 
+# Virtual Environments
+
+A virtual environment is an isolated Python workspace created inside a project folder. It keeps the project's libraries separate from the system-wide Python packages.
+
+## What is a virtual environment?
+A virtual environment is a self-contained directory with its own Python interpreter and installed packages. It lets each project use the exact dependencies it needs without affecting other projects.
+
+## Why use one?
+Use a virtual environment to avoid conflicts between projects, keep dependencies stable, and ensure the project works the same way on different machines.
+
+## What is pip?
+`pip` is Python's package installer. It downloads and installs third-party libraries from the Python Package Index (PyPI) so your code can use them.
+
+## What does pip install do?
+`pip install <package>` downloads the package and its required dependencies, then adds them to the active Python environment so you can import them.
+
+## What does pip freeze do?
+`pip freeze` lists the exact versions of all installed packages in the current environment. This is useful for sharing the project requirements with others.
+
+## Why use requirements.txt?
+A `requirements.txt` file records the package names and versions needed for a project. Other developers can install the same dependencies using `pip install -r requirements.txt`.
+
+## Difference between:
+`pip list`
+- Shows the packages installed in the current environment in a readable table.
+
+`pip freeze`
+- Shows installed packages in a precise format that can be saved to `requirements.txt`.
+
+## Why shouldn't we install packages globally?
+Installing packages globally can cause version conflicts between projects and make it harder to reproduce a working environment. Virtual environments keep each project isolated and safer.
+
+## What is an API?
+An API (Application Programming Interface) is a set of rules that lets one program talk to another. For example, GitHub's API lets your Python script request user data from GitHub.
+
+## Why use requests instead of sockets?
+`requests` is a high-level library for HTTP that handles many details for you, like headers, query parameters, redirects, and JSON parsing. Using raw sockets means writing much more low-level code and managing HTTP manually.
+
