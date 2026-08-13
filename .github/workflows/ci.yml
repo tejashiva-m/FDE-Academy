@@ -9,13 +9,13 @@ on:
     branches:
       - main
 
+  workflow_dispatch:
+
 jobs:
   test:
-
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -27,9 +27,12 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r day19/requirements.txt
+          pip install -r week03/day19/requirements.txt
+
+      - name: Check Python syntax
+        run: |
+          python -m compileall week03/day19
 
       - name: Run tests
-        run: |
-          cd day19
-          pytest
+        working-directory: week03/day19
+        run: pytest
