@@ -439,3 +439,60 @@ An API (Application Programming Interface) is a set of rules that lets one progr
 - `500` — Internal Server Error: The server encountered an unexpected condition and could not complete the request.
 - `503` — Service Unavailable: The server is temporarily unable to handle the request, often due to overload or maintenance.
 
+# CI/CD
+
+# What is Continuous Integration?
+
+Continuous Integration (CI) is the practice of regularly merging small code changes into a shared repository. Each change is automatically built and tested so problems can be found early.
+
+# What is Continuous Delivery?
+
+Continuous Delivery is the practice of keeping an application tested and ready for release at any time. The pipeline automates the build, testing, and preparation steps, but deploying to production usually requires manual approval.
+
+# What is Continuous Deployment?
+
+Continuous Deployment goes one step beyond Continuous Delivery. Every change that passes all required checks is automatically released to production without waiting for manual approval.
+
+# Why run automated tests in CI?
+
+Automated tests help detect bugs as soon as code is changed. They give developers quick feedback, prevent broken code from being merged, and make releases more reliable.
+
+# What is GitHub Actions?
+
+GitHub Actions is GitHub's automation service. It can run workflows for tasks such as building code, running tests, checking code quality, creating releases, and deploying applications.
+
+# What is a GitHub Actions runner?
+
+A runner is the machine that executes the jobs defined in a GitHub Actions workflow. It can be hosted by GitHub or managed by your own organization.
+
+# What does checkout do?
+
+The checkout action downloads the repository's code onto the runner. This allows later steps in the workflow to access, build, test, or package the project.
+
+# Why do we need requirements.txt?
+
+In a Python project, requirements.txt lists the packages and versions the application needs. CI uses it to install consistent dependencies before running the code or tests.
+
+# What is a CI pipeline?
+
+A CI pipeline is an automated sequence of checks that runs when code changes. It commonly installs dependencies, builds the application, performs linting, and runs automated tests.
+
+# What does a green pipeline mean?
+
+A green pipeline means every required job and check completed successfully. The code passed the automated validation defined by the team.
+
+# What does a failed pipeline mean?
+
+A failed pipeline means at least one required step did not complete successfully. The cause could be a test failure, linting error, build problem, missing dependency, or workflow configuration issue.
+
+# Why should tests run before deployment?
+
+Tests should run before deployment to catch problems before they reach users. Deploying only code that passes its tests reduces outages, regressions, and emergency fixes.
+
+# What is linting?
+
+Linting is the automated analysis of source code for style problems, common mistakes, and suspicious patterns. It helps keep code consistent and can identify some issues before the application runs.
+
+# Why should CI run on pull requests?
+
+Running CI on pull requests validates proposed changes before they are merged. It gives reviewers evidence that the code builds, follows quality rules, and passes tests while the change is still easy to correct.
