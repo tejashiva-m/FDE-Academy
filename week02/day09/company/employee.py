@@ -1,4 +1,4 @@
-from utils import format_currency, employee_status
+from utils import employee_status, format_currency
 
 MAX_SALARY = 1_000_000
 

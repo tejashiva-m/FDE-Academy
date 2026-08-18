@@ -1,14 +1,25 @@
-from typing import Optional
 
 from fastapi import FastAPI, HTTPException, Query
 
 try:
     from .database import initialize_database
-    from .employee_service import create_employee, delete_employee, get_employee, get_employees, update_employee
+    from .employee_service import (
+        create_employee,
+        delete_employee,
+        get_employee,
+        get_employees,
+        update_employee,
+    )
     from .schemas import EmployeeCreate, EmployeeResponse, EmployeeUpdate
 except ImportError:  # pragma: no cover - allows direct execution
     from database import initialize_database
-    from employee_service import create_employee, delete_employee, get_employee, get_employees, update_employee
+    from employee_service import (
+        create_employee,
+        delete_employee,
+        get_employee,
+        get_employees,
+        update_employee,
+    )
     from schemas import EmployeeCreate, EmployeeResponse, EmployeeUpdate
 
 initialize_database()
@@ -18,8 +29,8 @@ app = FastAPI()
 
 @app.get("/employees", response_model=list[EmployeeResponse])
 def list_employees(
-    department: Optional[str] = Query(default=None),
-    min_salary: Optional[float] = Query(default=None),
+    department: str | None = Query(default=None),
+    min_salary: float | None = Query(default=None),
 ):
     return get_employees(department=department, min_salary=min_salary)
 

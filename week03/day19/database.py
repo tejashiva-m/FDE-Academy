@@ -1,10 +1,14 @@
 from __future__ import annotations
+
+import os
 import sqlite3
 from collections.abc import Generator
 from pathlib import Path
 
 
-DATABASE_PATH = Path(__file__).with_name("employees.db")
+DATABASE_PATH = Path(
+    os.getenv("DATABASE_PATH", Path(__file__).with_name("employees.db"))
+)
 
 
 def connect(path: str | Path = DATABASE_PATH) -> sqlite3.Connection:

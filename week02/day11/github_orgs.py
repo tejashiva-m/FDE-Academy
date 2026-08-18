@@ -1,5 +1,5 @@
-from github_service import fetch_orgs
 import requests
+from github_service import fetch_orgs
 
 
 def display_orgs(username: str) -> None:

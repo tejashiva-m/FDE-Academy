@@ -1,6 +1,6 @@
+import requests
 from github_service import fetch_user
 from utils import format_date
-import requests
 
 
 def display_user(username: str) -> None:

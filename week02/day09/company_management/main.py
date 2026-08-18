@@ -1,6 +1,6 @@
 from .employee import Employee
-from .manager import Manager
 from .intern import Intern
+from .manager import Manager
 
 
 def main():

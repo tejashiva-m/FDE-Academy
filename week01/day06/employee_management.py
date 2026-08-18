@@ -3,7 +3,6 @@ from employee import Employee
 from intern import Intern
 from manager import Manager
 
-
 people = [
     Employee("Alice", "Cloud", 120000),
     Employee("Diana", "Engineering", 95000),

@@ -1,15 +1,26 @@
 import logging
-from typing import Optional
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, EmailStr, Field
 
 try:
     from .database import initialize_database
-    from .employee_service import create_employee, delete_employee, get_employee, get_employees, update_employee
+    from .employee_service import (
+        create_employee,
+        delete_employee,
+        get_employee,
+        get_employees,
+        update_employee,
+    )
 except ImportError:  # pragma: no cover - allows direct execution
     from database import initialize_database
-    from employee_service import create_employee, delete_employee, get_employee, get_employees, update_employee
+    from employee_service import (
+        create_employee,
+        delete_employee,
+        get_employee,
+        get_employees,
+        update_employee,
+    )
 
 initialize_database()
 
@@ -109,4 +120,3 @@ def remove_employee(employee_id: int):
         raise HTTPException(status_code=404, detail="Employee not found")
 
     logger.info("Employee %s deleted", employee_id)
-    return None

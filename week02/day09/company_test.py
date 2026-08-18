@@ -1,6 +1,6 @@
 from company.employee import Employee
-from company.manager import Manager
 from company.intern import Intern
+from company.manager import Manager
 
 employee = Employee("Teja", "Cloud", 120000)
 manager = Manager("Alice", "Cloud", 150000, 8)

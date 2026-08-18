@@ -12,7 +12,7 @@
 
 def print_employee_profile(name, department, salary, years_of_experience):
     print(f"\n{'=' * 32}")
-    print(f"Employee Profile")
+    print("Employee Profile")
     print(f"{'=' * 32}")
     print(f"Name: {name}")
     print(f"Department: {department}")

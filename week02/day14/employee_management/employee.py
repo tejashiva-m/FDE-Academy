@@ -1,10 +1,9 @@
 from dataclasses import dataclass
-from typing import Optional
 
 
 @dataclass
 class Employee:
-    id: Optional[int]
+    id: int | None
     name: str
     department: str
     salary: int

@@ -1,11 +1,9 @@
 import sqlite3
 
-from fastapi import Depends, FastAPI, HTTPException, Response, status
-
 import employee_service
 from database import get_db
+from fastapi import Depends, FastAPI, HTTPException, Response, status
 from schemas import EmployeeCreate, EmployeeResponse, EmployeeUpdate
-
 
 app = FastAPI(title="Employee API", version="1.0.0")
 

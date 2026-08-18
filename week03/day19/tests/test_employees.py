@@ -1,7 +1,6 @@
 import pytest
-from fastapi.testclient import TestClient
-
 from database import connect, create_tables, get_db
+from fastapi.testclient import TestClient
 from main import app
 
 

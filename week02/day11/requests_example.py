@@ -8,6 +8,7 @@ Do not run it with /usr/bin/python3 if you want the venv packages.
 """
 
 import warnings
+
 from urllib3.exceptions import NotOpenSSLWarning
 
 # Suppress urllib3 LibreSSL/OpenSSL compatibility warning on macOS

@@ -1,8 +1,7 @@
 from datetime import datetime
-from typing import Optional
 
 
-def format_date(iso_str: Optional[str]) -> str:
+def format_date(iso_str: str | None) -> str:
     """Format an ISO timestamp like 2020-01-01T12:00:00Z into a readable string.
 
     Returns the original value if parsing fails or input is falsy.

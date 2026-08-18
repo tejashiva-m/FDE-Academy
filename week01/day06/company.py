@@ -1,5 +1,7 @@
 from intern import Intern
 from manager import Manager
+
+
 class Company:
 
     def __init__(self, name):

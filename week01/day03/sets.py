@@ -2,7 +2,6 @@ skills = {
     "Python",
     "Azure",
     "Docker",
-    "Python",
     "Git"
 }
 
