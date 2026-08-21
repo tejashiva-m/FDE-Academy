@@ -496,3 +496,80 @@ Linting is the automated analysis of source code for style problems, common mist
 # Why should CI run on pull requests?
 
 Running CI on pull requests validates proposed changes before they are merged. It gives reviewers evidence that the code builds, follows quality rules, and passes tests while the change is still easy to correct.
+
+## Production Docker ##
+
+# What is a Docker health check?
+
+A Docker health check is a command that Docker runs inside a container at regular intervals to confirm that the application is working correctly. For example, it may call an HTTP health endpoint or check whether a required process is responding.
+
+# What is the difference between a running container and a healthy container?
+
+A running container means that the container's main process is still running. It does not guarantee that the application is working correctly.
+
+A healthy container means that the container is running and its configured health-check command is completing successfully. An application can therefore be running but unhealthy—for example, if its process has not crashed but it cannot respond to requests or connect to a required service.
+
+# What does HEALTHCHECK do?
+
+The HEALTHCHECK Dockerfile instruction tells Docker how to test the container's condition. Docker runs the specified command periodically and records the container as:
+
+starting while the initial checks are being performed
+
+healthy when a check succeeds
+
+unhealthy after the configured number of consecutive failures
+
+Example:
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+  CMD curl --fail http://localhost:8080/health || exit 1
+
+The command must return exit code 0 for success. A nonzero exit code indicates failure.
+
+# What do the health-check options mean?
+
+--interval: How long Docker waits between health checks.
+
+--timeout: The maximum time Docker allows one check to run before treating it as failed.
+
+--start-period: The startup grace period given to the application. Failures during this period generally do not count toward the retry limit.
+
+--retries: The number of consecutive failed checks required before Docker marks the container as unhealthy.
+
+# Why should configuration be stored outside application code?
+
+Keeping configuration outside the code allows the same application image to run in development, testing, staging, and production with different settings. It also prevents environment-specific values from being hardcoded and makes deployments easier to manage without rebuilding the application.
+
+Configuration may include database addresses, feature settings, port numbers, API endpoints, and log levels. Sensitive values should be managed through a proper secrets-management system rather than stored in source code.
+
+# Why should .env usually not be committed to Git?
+
+A .env file often contains secrets or environment-specific values, such as passwords, API keys, access tokens, and database connection details. Committing it to Git can expose those values through the repository and its history.
+
+The .env file should normally be added to .gitignore. Production secrets should be supplied through a secure secrets-management solution or the deployment platform.
+
+# What is the purpose of .env.example?
+
+An .env.example file documents the environment variables required to run the application without including real secrets. Developers can copy it to .env and replace the placeholder values with their local configuration.
+
+Example:
+
+APP_PORT=8080
+DATABASE_HOST=localhost
+DATABASE_USER=replace_me
+DATABASE_PASSWORD=replace_me
+
+Unlike .env, .env.example is normally committed to Git and should contain only safe placeholders or non-sensitive sample values.
+
+# What is the difference between health and readiness?
+
+# Health asks: Is my application alive and responding?
+
+It checks whether the application is operating rather than stuck or broken. A failed health check may indicate that the application needs to be restarted.
+
+# Readiness asks: Is my application ready to receive real traffic?
+
+An application may be healthy but not ready while it is warming up, running a migration, loading data, or waiting for an essential dependency. A failed readiness check should stop traffic from being sent to the application, but it does not always mean that the application should be restarted.
+
+This distinction is especially important in Kubernetes: liveness checks help detect applications that need restarting, while readiness checks control whether a pod receives traffic.
+
