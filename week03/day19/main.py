@@ -7,6 +7,9 @@ from schemas import EmployeeCreate, EmployeeResponse, EmployeeUpdate
 
 app = FastAPI(title="Employee API", version="1.0.0")
 
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
 
 @app.post(
     "/employees",

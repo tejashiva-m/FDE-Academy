@@ -4,7 +4,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DATABASE_PATH: /data/employees.db
+      DATABASE_PATH: ${DATABASE_PATH}
     volumes:
       - employee-data:/data
 
