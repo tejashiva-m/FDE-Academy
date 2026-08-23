@@ -1,12 +1,28 @@
 services:
+
   api:
     build: .
     ports:
       - "8000:8000"
     environment:
-      DATABASE_PATH: ${DATABASE_PATH}
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_NAME: employees
+      DATABASE_USER: employee_user
+      DATABASE_PASSWORD: employee_password
+    depends_on:
+      - db
+
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: employees
+      POSTGRES_USER: employee_user
+      POSTGRES_PASSWORD: employee_password
     volumes:
-      - employee-data:/data
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
 
 volumes:
-  employee-data:
+  postgres-data:

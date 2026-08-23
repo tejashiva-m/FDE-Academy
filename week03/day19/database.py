@@ -1,38 +1,47 @@
 from __future__ import annotations
 
-import os
-import sqlite3
 from collections.abc import Generator
-from pathlib import Path
 
+import psycopg
+from psycopg.rows import dict_row
 
-DATABASE_PATH = Path(
-    os.getenv("DATABASE_PATH", Path(__file__).with_name("employees.db"))
+from config import (
+    DATABASE_HOST,
+    DATABASE_NAME,
+    DATABASE_PASSWORD,
+    DATABASE_PORT,
+    DATABASE_USER,
 )
 
 
-def connect(path: str | Path = DATABASE_PATH) -> sqlite3.Connection:
-    connection = sqlite3.connect(path, check_same_thread=False)
-    connection.row_factory = sqlite3.Row
-    return connection
-
-
-def create_tables(connection: sqlite3.Connection) -> None:
-    connection.execute(
-        """
-        CREATE TABLE IF NOT EXISTS employees (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            email TEXT NOT NULL UNIQUE,
-            department TEXT NOT NULL,
-            salary REAL NOT NULL CHECK (salary > 0)
-        )
-        """
+def connect():
+    return psycopg.connect(
+        host=DATABASE_HOST,
+        port=DATABASE_PORT,
+        dbname=DATABASE_NAME,
+        user=DATABASE_USER,
+        password=DATABASE_PASSWORD,
+        row_factory=dict_row,
     )
+
+
+def create_tables(connection) -> None:
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS employees (
+                id SERIAL PRIMARY KEY,
+                name TEXT NOT NULL,
+                email TEXT NOT NULL UNIQUE,
+                department TEXT NOT NULL,
+                salary REAL NOT NULL CHECK (salary > 0)
+            )
+            """
+        )
     connection.commit()
 
 
-def get_db() -> Generator[sqlite3.Connection, None, None]:
+def get_db() -> Generator:
     connection = connect()
     create_tables(connection)
     try:

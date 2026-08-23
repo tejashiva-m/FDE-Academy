@@ -5,21 +5,21 @@ from main import app
 
 
 @pytest.fixture
-def client(tmp_path):
-    database_path = tmp_path / "test_employees.db"
+def client():
+    connection = connect()
+    create_tables(connection)
+    with connection.cursor() as cursor:
+        cursor.execute("TRUNCATE TABLE employees RESTART IDENTITY")
+    connection.commit()
 
     def override_get_db():
-        connection = connect(database_path)
-        create_tables(connection)
-        try:
-            yield connection
-        finally:
-            connection.close()
+        yield connection
 
     app.dependency_overrides[get_db] = override_get_db
     with TestClient(app) as test_client:
         yield test_client
     app.dependency_overrides.clear()
+    connection.close()
 
 
 @pytest.fixture

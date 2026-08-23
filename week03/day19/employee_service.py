@@ -1,66 +1,69 @@
 from __future__ import annotations
 
-import sqlite3
-
 from schemas import EmployeeCreate, EmployeeUpdate
 
 
 def create_employee(
-    connection: sqlite3.Connection, employee: EmployeeCreate
+    connection, employee: EmployeeCreate
 ) -> dict:
-    cursor = connection.execute(
-        """
-        INSERT INTO employees (name, email, department, salary)
-        VALUES (?, ?, ?, ?)
-        """,
-        (employee.name, employee.email, employee.department, employee.salary),
-    )
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """
+            INSERT INTO employees (name, email, department, salary)
+            VALUES (%s, %s, %s, %s)
+            RETURNING id, name, email, department, salary
+            """,
+            (employee.name, employee.email, employee.department, employee.salary),
+        )
+        result = cursor.fetchone()
     connection.commit()
-    return get_employee(connection, cursor.lastrowid)
+    return result
 
 
-def list_employees(connection: sqlite3.Connection) -> list[dict]:
-    rows = connection.execute("SELECT * FROM employees ORDER BY id").fetchall()
-    return [dict(row) for row in rows]
+def list_employees(connection) -> list[dict]:
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM employees ORDER BY id")
+        return cursor.fetchall()
 
 
 def get_employee(
-    connection: sqlite3.Connection, employee_id: int
+    connection, employee_id: int
 ) -> dict | None:
-    row = connection.execute(
-        "SELECT * FROM employees WHERE id = ?", (employee_id,)
-    ).fetchone()
-    return dict(row) if row else None
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM employees WHERE id = %s", (employee_id,))
+        return cursor.fetchone()
 
 
 def update_employee(
-    connection: sqlite3.Connection,
+    connection,
     employee_id: int,
     employee: EmployeeUpdate,
 ) -> dict | None:
-    cursor = connection.execute(
-        """
-        UPDATE employees
-        SET name = ?, email = ?, department = ?, salary = ?
-        WHERE id = ?
-        """,
-        (
-            employee.name,
-            employee.email,
-            employee.department,
-            employee.salary,
-            employee_id,
-        ),
-    )
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """
+            UPDATE employees
+            SET name = %s, email = %s, department = %s, salary = %s
+            WHERE id = %s
+            """,
+            (
+                employee.name,
+                employee.email,
+                employee.department,
+                employee.salary,
+                employee_id,
+            ),
+        )
+        updated = cursor.rowcount > 0
     connection.commit()
-    if cursor.rowcount == 0:
+    if not updated:
         return None
     return get_employee(connection, employee_id)
 
 
-def delete_employee(connection: sqlite3.Connection, employee_id: int) -> bool:
-    cursor = connection.execute(
-        "DELETE FROM employees WHERE id = ?", (employee_id,)
-    )
+def delete_employee(connection, employee_id: int) -> bool:
+    with connection.cursor() as cursor:
+        cursor.execute("DELETE FROM employees WHERE id = %s", (employee_id,))
+        deleted = cursor.rowcount > 0
     connection.commit()
-    return cursor.rowcount > 0
+    return deleted
