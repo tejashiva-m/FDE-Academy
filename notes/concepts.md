@@ -573,3 +573,79 @@ An application may be healthy but not ready while it is warming up, running a mi
 
 This distinction is especially important in Kubernetes: liveness checks help detect applications that need restarting, while readiness checks control whether a pod receives traffic.
 
+## Docker Networking ##
+
+# What is a Docker network?
+
+A Docker network allows containers to communicate with each other. Containers connected to the same user-defined network can reach one another without exposing every service to the host machine.
+
+# What does localhost mean inside a container?
+
+Inside a container, localhost refers to that container itself. It does not refer to the host machine or another container.
+
+For example, an API container cannot connect to a separate PostgreSQL container using localhost:5432. It must use the database container's network name or Compose service name.
+
+# How does one Compose service communicate with another?
+
+Docker Compose normally creates a network for the application and connects its services to it. Each service can reach another service by using the other service's name as the hostname.
+
+For example:
+
+services:
+  api:
+    build: .
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+    depends_on:
+      - db
+
+  db:
+    image: postgres:17
+
+The API can connect to PostgreSQL at db:5432. It should use the container port, not a host-published port, for communication within the Compose network.
+
+# What does depends_on do?
+
+depends_on controls the order in which Compose starts and stops services. By itself, it only ensures that a dependency's container has started; it does not guarantee that the application inside the container is ready to accept connections.
+
+When readiness matters, define a health check for the dependency and use a supported dependency condition, or make the application retry its connection:
+
+services:
+  api:
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:17
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+Application-level retries are still important because a dependency can become unavailable after startup.
+
+# Why use Docker volumes for databases?
+
+Containers are disposable. If database files are stored only in a container's writable layer, the data can be lost when the container is removed and recreated.
+
+A Docker volume stores the database files separately from the container lifecycle:
+
+services:
+  db:
+    image: postgres:17
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+
+A volume provides persistence on the Docker host, but it is not a substitute for database backups.
+
+# What is service discovery?
+
+Service discovery allows one service to locate another through a stable name instead of a hard-coded IP address. Docker's built-in DNS resolves Compose service names, such as db, to the appropriate container address.
+
+This matters because container IP addresses can change whenever containers are recreated, while the service name remains stable.
