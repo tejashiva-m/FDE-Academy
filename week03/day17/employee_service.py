@@ -1,4 +1,3 @@
-
 try:
     from .database import get_connection
 except ImportError:  # pragma: no cover - allows direct import in simple runs
@@ -46,7 +45,13 @@ def get_employees(department=None, min_salary=None):
     connection.close()
 
     return [
-        {"id": row["id"], "name": row["name"], "department": row["department"], "salary": row["salary"], "email": row["email"]}
+        {
+            "id": row["id"],
+            "name": row["name"],
+            "department": row["department"],
+            "salary": row["salary"],
+            "email": row["email"],
+        }
         for row in rows
     ]
 
@@ -64,7 +69,13 @@ def get_employee(employee_id):
     if row is None:
         return None
 
-    return {"id": row["id"], "name": row["name"], "department": row["department"], "salary": row["salary"], "email": row["email"]}
+    return {
+        "id": row["id"],
+        "name": row["name"],
+        "department": row["department"],
+        "salary": row["salary"],
+        "email": row["email"],
+    }
 
 
 def update_employee(employee_id, name=None, department=None, salary=None, email=None):
@@ -72,13 +83,22 @@ def update_employee(employee_id, name=None, department=None, salary=None, email=
     cursor = connection.cursor()
 
     if name is not None:
-        cursor.execute("UPDATE employees SET name = ? WHERE id = ?", (name, employee_id))
+        cursor.execute(
+            "UPDATE employees SET name = ? WHERE id = ?", (name, employee_id)
+        )
     if department is not None:
-        cursor.execute("UPDATE employees SET department = ? WHERE id = ?", (department, employee_id))
+        cursor.execute(
+            "UPDATE employees SET department = ? WHERE id = ?",
+            (department, employee_id),
+        )
     if salary is not None:
-        cursor.execute("UPDATE employees SET salary = ? WHERE id = ?", (salary, employee_id))
+        cursor.execute(
+            "UPDATE employees SET salary = ? WHERE id = ?", (salary, employee_id)
+        )
     if email is not None:
-        cursor.execute("UPDATE employees SET email = ? WHERE id = ?", (email, employee_id))
+        cursor.execute(
+            "UPDATE employees SET email = ? WHERE id = ?", (email, employee_id)
+        )
 
     connection.commit()
     connection.close()

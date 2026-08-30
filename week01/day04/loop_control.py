@@ -1,5 +1,4 @@
 for number in range(10):
-
     if number == 5:
         break
 
@@ -8,7 +7,6 @@ for number in range(10):
 print()
 
 for number in range(10):
-
     if number == 5:
         continue
 

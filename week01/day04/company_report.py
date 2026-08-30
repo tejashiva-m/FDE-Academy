@@ -35,17 +35,17 @@ def print_employee(employee):
 def calculate_average_salary(employees_list):
     """Return average salary (0 if list empty)."""
     total = len(employees_list)
-    return sum(e['salary'] for e in employees_list) / total if total else 0
+    return sum(e["salary"] for e in employees_list) / total if total else 0
 
 
 def highest_salary(employees_list):
     """Return highest salary (0 if list empty)."""
-    return max((e['salary'] for e in employees_list), default=0)
+    return max((e["salary"] for e in employees_list), default=0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Bonus: sort employees by salary (descending)
-    sorted_employees = sorted(employees, key=lambda e: e['salary'], reverse=True)
+    sorted_employees = sorted(employees, key=lambda e: e["salary"], reverse=True)
 
     for emp in sorted_employees:
         print_employee(emp)
@@ -59,5 +59,3 @@ if __name__ == '__main__':
     print(f"Total Employees: {len(employees)}")
     print(f"Average Salary: ${avg:,.2f}")
     print(f"Highest Salary: ${high:,.2f}")
-
-

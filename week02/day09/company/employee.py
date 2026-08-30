@@ -35,5 +35,3 @@ class Employee:
             raise ValueError("promotion would exceed maximum allowed salary")
         print(f"Promoting {self.name}: +${raise_amount:,}")
         self.salary = new_salary
-
-        

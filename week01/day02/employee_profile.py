@@ -10,6 +10,7 @@
 # Bonus challenge: If the salary is greater than $100,000, print: Senior Employee
 # Otherwise: Growth Path Available
 
+
 def print_employee_profile(name, department, salary, years_of_experience):
     print(f"\n{'=' * 32}")
     print("Employee Profile")
@@ -23,7 +24,8 @@ def print_employee_profile(name, department, salary, years_of_experience):
         print("Status: Senior Employee")
     else:
         print("Status: Growth Path Available")
-    
+
     print(f"{'=' * 32}\n")
+
 
 print_employee_profile("Teja", "FDE", 120000, 5)

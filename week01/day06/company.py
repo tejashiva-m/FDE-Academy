@@ -3,7 +3,6 @@ from manager import Manager
 
 
 class Company:
-
     def __init__(self, name):
         self.name = name
         self.employees = []
@@ -19,8 +18,12 @@ class Company:
             salaries = [employee.salary for employee in self.employees]
             average_salary = sum(salaries) / len(salaries)
             highest_salary = max(salaries)
-            manager_count = sum(1 for employee in self.employees if isinstance(employee, Manager))
-            intern_count = sum(1 for employee in self.employees if isinstance(employee, Intern))
+            manager_count = sum(
+                1 for employee in self.employees if isinstance(employee, Manager)
+            )
+            intern_count = sum(
+                1 for employee in self.employees if isinstance(employee, Intern)
+            )
 
             print(f"Average Salary: ${average_salary:,.2f}")
             print(f"Highest Salary: ${highest_salary:,.2f}")

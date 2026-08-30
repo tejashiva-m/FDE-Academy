@@ -7,7 +7,7 @@ def display_user(username: str) -> None:
     try:
         data = fetch_user(username)
     except requests.HTTPError as exc:
-        resp = getattr(exc, 'response', None)
+        resp = getattr(exc, "response", None)
         if resp is not None and resp.status_code == 404:
             print("GitHub user not found.")
         else:
@@ -18,7 +18,7 @@ def display_user(username: str) -> None:
         return
 
     print(f"Name: {data.get('name') or 'No name provided'}")
-    bio = data.get('bio') or 'Not provided'
+    bio = data.get("bio") or "Not provided"
     print(f"Bio: {bio}")
     print(f"Followers: {data.get('followers', 0)}")
     print(f"Following: {data.get('following', 0)}")

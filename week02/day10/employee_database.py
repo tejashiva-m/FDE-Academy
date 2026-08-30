@@ -9,7 +9,12 @@ def input_employee(employees):
     name = input("Name: ")
     department = input("Department: ")
     salary = int(input("Salary: "))
-    return {"id": get_next_id(employees), "name": name, "department": department, "salary": salary}
+    return {
+        "id": get_next_id(employees),
+        "name": name,
+        "department": department,
+        "salary": salary,
+    }
 
 
 def find_employee_by_name(employees, name):

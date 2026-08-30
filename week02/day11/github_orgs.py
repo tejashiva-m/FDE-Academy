@@ -6,7 +6,7 @@ def display_orgs(username: str) -> None:
     try:
         orgs = fetch_orgs(username)
     except requests.HTTPError as exc:
-        resp = getattr(exc, 'response', None)
+        resp = getattr(exc, "response", None)
         if resp is not None and resp.status_code == 404:
             print("GitHub user not found.")
         else:

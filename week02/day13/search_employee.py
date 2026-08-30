@@ -11,7 +11,7 @@ cursor.execute(
     FROM employees
     WHERE name = ?
     """,
-    (name,)
+    (name,),
 )
 
 employee = cursor.fetchone()

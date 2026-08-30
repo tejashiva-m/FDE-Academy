@@ -19,13 +19,18 @@ class EmployeeService:
         return self.db.cursor.lastrowid
 
     def get_employee(self, employee_id):
-        row = self.db.execute("SELECT id, name, department, salary FROM employees WHERE id = ?", (employee_id,)).fetchone()
+        row = self.db.execute(
+            "SELECT id, name, department, salary FROM employees WHERE id = ?",
+            (employee_id,),
+        ).fetchone()
         if row is None:
             return None
         return Employee(row[0], row[1], row[2], row[3])
 
     def list_employees(self):
-        rows = self.db.execute("SELECT id, name, department, salary FROM employees ORDER BY id").fetchall()
+        rows = self.db.execute(
+            "SELECT id, name, department, salary FROM employees ORDER BY id"
+        ).fetchall()
         return [Employee(row[0], row[1], row[2], row[3]) for row in rows]
 
     def search_by_name(self, name):
@@ -49,11 +54,15 @@ class EmployeeService:
         return [Employee(row[0], row[1], row[2], row[3]) for row in rows]
 
     def get_average_salary(self):
-        row = self.db.execute("SELECT AVG(salary) AS average_salary FROM employees").fetchone()
+        row = self.db.execute(
+            "SELECT AVG(salary) AS average_salary FROM employees"
+        ).fetchone()
         return round(row[0], 2) if row[0] is not None else 0
 
     def get_highest_salary(self):
-        row = self.db.execute("SELECT MAX(salary) AS highest_salary FROM employees").fetchone()
+        row = self.db.execute(
+            "SELECT MAX(salary) AS highest_salary FROM employees"
+        ).fetchone()
         return row[0] if row[0] is not None else 0
 
     def count_by_department(self, department):
@@ -64,7 +73,9 @@ class EmployeeService:
         return row[0]
 
     def update_salary(self, employee_id, new_salary):
-        self.db.execute("UPDATE employees SET salary = ? WHERE id = ?", (new_salary, employee_id))
+        self.db.execute(
+            "UPDATE employees SET salary = ? WHERE id = ?", (new_salary, employee_id)
+        )
         self.db.commit()
 
     def delete_employee(self, employee_id):

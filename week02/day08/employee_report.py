@@ -7,4 +7,3 @@ with open(file_path, "r") as file:
 
 for index, employee in enumerate(employees, start=1):
     print(f"Employee {index}: {employee}")
-

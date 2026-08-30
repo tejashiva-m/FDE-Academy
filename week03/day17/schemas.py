@@ -21,4 +21,3 @@ class EmployeeResponse(BaseModel):
     department: str
     salary: float
     email: EmailStr
-

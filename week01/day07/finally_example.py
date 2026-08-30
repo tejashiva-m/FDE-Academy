@@ -7,4 +7,3 @@ except FileNotFoundError:
 
 finally:
     print("Cleaning up resources.")
-    

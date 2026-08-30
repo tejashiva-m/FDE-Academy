@@ -19,7 +19,7 @@ new_employee = {
     "id": next_id,
     "name": name,
     "department": department,
-    "salary": int(salary)
+    "salary": int(salary),
 }
 
 employees.append(new_employee)

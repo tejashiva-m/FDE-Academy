@@ -2,7 +2,6 @@ MAX_SALARY = 1_000_000
 
 
 class Employee:
-
     def __init__(self, name, department, salary):
         self.name = name
         self.department = department
@@ -35,13 +34,12 @@ class Employee:
 
 
 class Manager(Employee):
-
     def __init__(self, name, department, salary, team_size):
         super().__init__(name, department, salary)
         self.team_size = team_size
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     employee1 = Employee("Teja", "Cloud", 120000)
 
     employee1.display()
@@ -57,9 +55,3 @@ if __name__ == '__main__':
 
     manager = Manager("Teja", "Cloud", 150000, 8)
     manager.display()
-
-
-
-
-
-

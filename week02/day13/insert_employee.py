@@ -8,7 +8,7 @@ cursor.execute(
     INSERT INTO employees(name, department, salary)
     VALUES (?, ?, ?)
     """,
-    ("Teja", "Cloud", 120000)
+    ("Teja", "Cloud", 120000),
 )
 
 connection.commit()

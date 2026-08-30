@@ -59,7 +59,10 @@ def get_all_employees():
         logger.exception("Database error while fetching employees")
         raise RuntimeError(f"Database error: {exc}") from exc
 
-    return [Employee(id=row[0], name=row[1], department=row[2], salary=row[3]) for row in rows]
+    return [
+        Employee(id=row[0], name=row[1], department=row[2], salary=row[3])
+        for row in rows
+    ]
 
 
 def search_employee(keyword):
@@ -84,7 +87,10 @@ def search_employee(keyword):
         logger.exception("Database error while searching employees")
         raise RuntimeError(f"Database error: {exc}") from exc
 
-    return [Employee(id=row[0], name=row[1], department=row[2], salary=row[3]) for row in rows]
+    return [
+        Employee(id=row[0], name=row[1], department=row[2], salary=row[3])
+        for row in rows
+    ]
 
 
 def update_salary(employee_id, new_salary):
@@ -209,7 +215,9 @@ def get_department_count():
 
 def export_employees(path=None):
     employees = get_all_employees()
-    export_path = Path(path) if path else Path(__file__).resolve().parent / "employees.json"
+    export_path = (
+        Path(path) if path else Path(__file__).resolve().parent / "employees.json"
+    )
 
     payload = [
         {
@@ -226,7 +234,9 @@ def export_employees(path=None):
 
     csv_path = export_path.with_suffix(".csv")
     with csv_path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=["id", "name", "department", "salary"])
+        writer = csv.DictWriter(
+            handle, fieldnames=["id", "name", "department", "salary"]
+        )
         writer.writeheader()
         for entry in payload:
             writer.writerow(entry)

@@ -13,5 +13,4 @@ print(withdraw(500, 200))
 
 print(withdraw(500, 900))  # This will raise a ValueError: Insufficient funds.
 
-print(withdraw(500, -10))  # This will raise a ValueError: Amount must be positive. 
-
+print(withdraw(500, -10))  # This will raise a ValueError: Amount must be positive.

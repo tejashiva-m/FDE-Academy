@@ -2,7 +2,7 @@ employee = {
     "name": "Teja",
     "role": "Senior DevOps Engineer",
     "experience": 11,
-    "cloud": "Azure"
+    "cloud": "Azure",
 }
 
 print(employee["name"])

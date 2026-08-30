@@ -8,4 +8,3 @@ except ValueError:
 
 except ZeroDivisionError:
     print("Division by zero is not allowed.")
-

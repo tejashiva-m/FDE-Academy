@@ -8,7 +8,7 @@ cursor.execute(
     DELETE FROM employees
     WHERE name = ?
     """,
-    ("Teja",)
+    ("Teja",),
 )
 
 connection.commit()
@@ -16,4 +16,3 @@ connection.commit()
 print("Employee deleted.")
 
 connection.close()
-

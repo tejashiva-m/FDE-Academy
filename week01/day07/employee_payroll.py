@@ -12,7 +12,6 @@ class PromotionError(ValueError):
 
 
 class Employee:
-
     def __init__(self, name: str, department: str, salary: float) -> None:
         self.name = name
         self.department = department

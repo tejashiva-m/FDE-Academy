@@ -10,7 +10,11 @@ class Company:
         self.employees.append(employee)
 
     def average_salary(self):
-        return sum(e.salary for e in self.employees) / len(self.employees) if self.employees else 0
+        return (
+            sum(e.salary for e in self.employees) / len(self.employees)
+            if self.employees
+            else 0
+        )
 
     def highest_salary(self):
         return max(e.salary for e in self.employees) if self.employees else 0
@@ -26,7 +30,7 @@ class Company:
         print(f"Highest Salary: ${self.highest_salary():,.2f}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     employees = [
         Employee("Teja", "Cloud", 120000),
         Employee("John", "Security", 95000),

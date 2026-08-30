@@ -9,7 +9,7 @@ cursor.execute(
     SET salary = ?
     WHERE name = ?
     """,
-    (150000, "Teja")
+    (150000, "Teja"),
 )
 
 connection.commit()
@@ -17,4 +17,3 @@ connection.commit()
 print("Salary updated.")
 
 connection.close()
-

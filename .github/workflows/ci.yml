@@ -24,21 +24,56 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: Install Ruff
-        run: python -m pip install ruff
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff
+          pip install -r week03/day19/requirements.txt
 
       - name: Run Ruff
         run: ruff check .
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r week03/day19/requirements.txt
-
       - name: Check Python syntax
+        run: python -m compileall week03/day19
+
+      - name: Start PostgreSQL
+        working-directory: week03/day19
+        run: docker compose up -d db
+
+      - name: Wait for PostgreSQL
+        working-directory: week03/day19
         run: |
-          python -m compileall week03/day19
+          for attempt in {1..20}; do
+            if docker compose exec -T db \
+              pg_isready -U employee_user -d employees; then
+              echo "PostgreSQL is ready"
+              exit 0
+            fi
+
+            echo "Waiting for PostgreSQL..."
+            sleep 3
+          done
+
+          echo "PostgreSQL did not become ready"
+          docker compose logs db
+          exit 1
 
       - name: Run tests
         working-directory: week03/day19
+        env:
+          DATABASE_HOST: localhost
+          DATABASE_PORT: 5432
+          DATABASE_NAME: employees
+          DATABASE_USER: employee_user
+          DATABASE_PASSWORD: employee_password
         run: pytest
+
+      - name: Show Docker logs on failure
+        if: failure()
+        working-directory: week03/day19
+        run: docker compose logs
+
+      - name: Stop containers
+        if: always()
+        working-directory: week03/day19
+        run: docker compose down -v

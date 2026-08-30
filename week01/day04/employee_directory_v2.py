@@ -33,8 +33,8 @@ def print_employee(employee):
 def print_summary(employees):
     """Print summary statistics for the employee list."""
     total = len(employees)
-    average = sum(e['salary'] for e in employees) / total if total else 0
-    highest = max(e['salary'] for e in employees) if employees else 0
+    average = sum(e["salary"] for e in employees) / total if total else 0
+    highest = max(e["salary"] for e in employees) if employees else 0
 
     print()
     print(f"Total Employees: {total}")
@@ -42,9 +42,7 @@ def print_summary(employees):
     print(f"Highest Salary: ${highest:,.2f}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     for emp in employees:
         print_employee(emp)
     print_summary(employees)
-
-    
