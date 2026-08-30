@@ -3,9 +3,7 @@ from __future__ import annotations
 from schemas import EmployeeCreate, EmployeeUpdate
 
 
-def create_employee(
-    connection, employee: EmployeeCreate
-) -> dict:
+def create_employee(connection, employee: EmployeeCreate) -> dict:
     with connection.cursor() as cursor:
         cursor.execute(
             """
@@ -26,9 +24,7 @@ def list_employees(connection) -> list[dict]:
         return cursor.fetchall()
 
 
-def get_employee(
-    connection, employee_id: int
-) -> dict | None:
+def get_employee(connection, employee_id: int) -> dict | None:
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM employees WHERE id = %s", (employee_id,))
         return cursor.fetchone()

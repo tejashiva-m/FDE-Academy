@@ -1,8 +1,6 @@
 import psycopg
-from fastapi import APIRouter, HTTPException, status
-
 from database import connect
-
+from fastapi import APIRouter, HTTPException, status
 
 router = APIRouter(
     prefix="/health",
@@ -12,9 +10,7 @@ router = APIRouter(
 
 @router.get("/live")
 def liveness_check():
-    return {
-        "status": "alive"
-    }
+    return {"status": "alive"}
 
 
 @router.get("/ready")

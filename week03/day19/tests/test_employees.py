@@ -143,9 +143,7 @@ def test_duplicate_email_returns_409(client, employee_payload):
     response = client.post("/employees", json=duplicate_payload)
 
     assert response.status_code == 409
-    assert response.json() == {
-        "detail": "An employee with this email already exists"
-    }
+    assert response.json() == {"detail": "An employee with this email already exists"}
 
 
 def test_update_to_duplicate_email_returns_409(client, employee_payload):
@@ -158,8 +156,6 @@ def test_update_to_duplicate_email_returns_409(client, employee_payload):
     second = create_employee(client, second_payload)
     conflicting_payload = {**second_payload, "email": employee_payload["email"]}
 
-    response = client.put(
-        f"/employees/{second['id']}", json=conflicting_payload
-    )
+    response = client.put(f"/employees/{second['id']}", json=conflicting_payload)
 
     assert response.status_code == 409

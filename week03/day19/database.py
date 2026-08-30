@@ -3,8 +3,6 @@ from __future__ import annotations
 from collections.abc import Generator
 
 import psycopg
-from psycopg.rows import dict_row
-
 from config import (
     DATABASE_HOST,
     DATABASE_NAME,
@@ -12,6 +10,7 @@ from config import (
     DATABASE_PORT,
     DATABASE_USER,
 )
+from psycopg.rows import dict_row
 
 
 def connect():
