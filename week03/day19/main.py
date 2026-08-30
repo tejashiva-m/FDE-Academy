@@ -3,8 +3,12 @@ import psycopg
 from database import get_db
 from fastapi import Depends, FastAPI, HTTPException, Response, status
 from schemas import EmployeeCreate, EmployeeResponse, EmployeeUpdate
+from health import router as health_router
+
 
 app = FastAPI(title="Employee API", version="1.0.0")
+
+app.include_router(health_router)
 
 @app.get("/health")
 def health_check():
