@@ -9,8 +9,7 @@ def format_date(iso_str: str | None) -> str:
     if not iso_str:
         return "Unknown"
     try:
-        # Handle trailing Z
         dt = datetime.fromisoformat(iso_str.replace("Z", "+00:00"))
         return dt.strftime("%Y-%m-%d %H:%M:%S UTC")
-    except Exception:
+    except ValueError:
         return iso_str

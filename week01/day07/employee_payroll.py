@@ -2,6 +2,8 @@ import logging
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
+logger = logging.getLogger(__name__)
+
 MAX_SALARY = 1_000_000
 
 
@@ -34,11 +36,11 @@ class Employee:
                 raise PromotionError("Raise amount must be positive.")
 
             self.salary += raise_amount
-            logging.info("Employee promoted.")
+            logger.info("Employee promoted.")
             print("Promotion successful.")
 
         except PromotionError as error:
-            logging.error("Promotion rejected.")
+            logger.error("Promotion rejected.")
             print(f"Promotion failed: {error}")
 
 

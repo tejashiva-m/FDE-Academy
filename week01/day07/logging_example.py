@@ -4,9 +4,8 @@ logging.basicConfig(
     level=logging.INFO
 )
 
-logging.info("Application started")
+logger = logging.getLogger(__name__)
 
-logging.warning("Low disk space")
-
-logging.error("Database unavailable")
-
+logger.info("Application started")
+logger.warning("Low disk space")
+logger.error("Database unavailable")
