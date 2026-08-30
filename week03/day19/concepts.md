@@ -217,3 +217,136 @@ A container should be treated as replaceable. It may be deleted and recreated du
 If important data exists  only in the container's writable layer, deleting that container deletes the data with it. This is especially dangerous for databases, uploaded files, and other state that must survive restarts or replacements.
 
 Persistent data should be stored in a named volume, bind-mounted storage, or an external managed service. This separates the application's lifecycle from the data's lifecycle. The container can then be rebuilt or replaced without losing the application data.
+
+
+## Docker Health Checks — FDE Day 26 ##
+
+Imagine your application has two containers:
+
+PostgreSQL database
+Employee application
+
+The employee application needs PostgreSQL before it can work.
+
+# Why is depends_on alone not enough?
+
+depends_on controls which container starts first.
+
+For example:
+
+depends_on:
+  - postgres
+
+Docker starts the PostgreSQL container first and then starts the application container.
+
+But there is one problem: started does not mean ready.
+
+# PostgreSQL may take several seconds to:
+
+Start its internal processes
+Create or load the database
+Accept connections
+
+During that time, Docker may start the employee application. The application tries to connect to PostgreSQL, but PostgreSQL is not ready yet, so the application may fail.
+
+# A simple real-life example:
+
+A restaurant door is open, but the kitchen is still preparing. The restaurant has started, but it is not ready to serve customers.
+
+# What is a health check?
+
+A health check is a command that Docker runs repeatedly to confirm that a service is working correctly.
+
+# For PostgreSQL, we can use:
+
+pg_isready -U employee_user -d employees
+
+# This command checks whether PostgreSQL is ready to accept connections for:
+
+User: employee_user
+Database: employees
+
+# If PostgreSQL is ready, the health check succeeds. If not, Docker waits and checks again.
+
+Example:
+
+healthcheck:
+  test: ["CMD-SHELL", "pg_isready -U employee_user -d employees"]
+  interval: 5s
+  timeout: 5s
+  retries: 5
+
+# Meaning:
+
+test: Command used to check PostgreSQL
+interval: 5s: Run the check every five seconds
+timeout: 5s: Wait up to five seconds for each check
+retries: 5: Mark it unhealthy after five failed checks
+What does service_healthy mean?
+
+# We can tell Docker Compose to start the application only after PostgreSQL becomes healthy:
+
+depends_on:
+  postgres:
+    condition: service_healthy
+
+# The startup flow becomes:
+
+Start the PostgreSQL container.
+Run the PostgreSQL health check.
+Wait until PostgreSQL reports healthy.
+Start the employee application.
+Running vs. healthy
+Status	Simple meaning
+Running	The container's main process has started.
+Healthy	Docker successfully checked that the application inside the container is working.
+
+A PostgreSQL container can therefore be running but not yet healthy.
+
+# Why are health checks important?
+
+Health checks make multi-container applications more reliable because:
+
+Applications do not connect to dependencies too early.
+Startup errors are reduced.
+Docker can show whether a service is actually working.
+Troubleshooting becomes easier.
+
+You can check the status using:
+
+docker compose ps
+
+You may see:
+
+postgres    Up 20 seconds (healthy)
+app         Up 15 seconds
+
+# Why use a volume for PostgreSQL?
+
+A container is temporary. It can be stopped, deleted, or recreated during deployment.
+
+If PostgreSQL data is stored only inside the container, deleting the container may delete the data as well.
+
+A Docker volume stores the database data outside the container:
+
+volumes:
+  - postgres_data:/var/lib/postgresql/data
+
+And define the volume:
+
+volumes:
+  postgres_data:
+
+Now PostgreSQL can be recreated while the database records remain available.
+
+# A simple example:
+
+The container is like a rented laptop, while the Docker volume is like an external hard drive. You can replace the laptop without losing the files on the external drive.
+
+# In short:
+
+depends_on = start PostgreSQL first.
+Health check = verify PostgreSQL is actually ready.
+service_healthy = wait for that verification before starting the application.
+Volume = keep PostgreSQL data even when its container is recreated.
+
