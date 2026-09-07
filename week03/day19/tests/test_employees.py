@@ -3,7 +3,6 @@ from database import connect, create_tables, get_db
 from fastapi.testclient import TestClient
 from main import app
 
-
 @pytest.fixture
 def client():
     connection = connect()
