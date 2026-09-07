@@ -19,6 +19,11 @@ def db_connection():
 
     connection.close()
 
+@pytest.fixture
+def clean_database(db_connection):
+    with db_connection.cursor() as cursor:
+        cursor.execute("TRUNCATE TABLE employees RESTART IDENTITY")
+    db_connection.commit()
 
 @pytest.fixture
 def client(db_connection):
